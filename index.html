@@ -8,12 +8,15 @@
     <meta name="author" content="RisingPath Team">
     <title>RisingPath - Smart Internship Finder</title>
     
+    <!-- Preload critical resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiUmlzaW5nUGF0aCIsInNob3J0X25hbWUiOiJSaXNpbmdQYXRoIiwidGhlbWVfY29sb3IiOiIjNjY3ZWVhIiwiYmFja2dyb3VuZF9jb2xvciI6IiNmZmZmZmYiLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsInN0YXJ0X3VybCI6Ii8iLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCMmFXVjNRbTk0UFNJd0lEQWdNVEk0SURNNE9DSWdlRzFzYm5NOUltaDBkSEE2THk5M2QzY3Vkek11YjNKbkx6SXdNREF2YzNabklpQm1hV3hzUFNJak5qWTNaV1ZoSWo0OFkybHlZMnhsSUdONFBTSTJOQ0lnY2owaU5qUWlMejQ4TDNOMlp6ND0iLCJzaXplcyI6IjEyOHgxMjgiLCJ0eXBlIjoiaW1hZ2Uvc3ZnK3htbCJ9XX0=">
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiUmlzaW5nUGF0aCIsInNob3J0X25hbWUiOiJSaXNpbmdQYXRoIiwidGhlbWVfY29sb3IiOiIjNjY3ZWVhIiwiYmFja2dyb3VuZF9jb2xvciI6IiNmZmZmZmYiLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsInN0YXJ0X3VybCI6Ii8iLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCMmFXVjNRbTk0UFNJd0lEQWdNVEk0SURNNE9DSWdlRzFzYm5NOUltaDBkSEE2THk5M2QzY3Vkek11YjNKbkx6SXdNREF2YzNabklpQm1hV3hzUFNJak5qWTNaV1ZoSWo0OFkybHlZMnhsSUdONFBTSTJOQ0lnWTNrOUlqRTVOQ0lnY2owaU5qUWlMejQ4TDNOMlp6ND0iLCJzaXplcyI6IjEyOHgxMjgiLCJ0eXBlIjoiaW1hZ2Uvc3ZnK3htbCJ9XX0=">
     
+    <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTI4IDM4OCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBmaWxsPSIjNjY3ZWVhIj48Y2lyY2xlIGN4PSI2NCIgY3k9IjE5NCIgcj0iNjQiLz48L3N2Zz4=">
     
     <style>
@@ -107,15 +110,6 @@
             opacity: 0;
             visibility: hidden;
         }
-        
-        .loading-content {
-            opacity: 1;
-            transition: opacity 0.5s ease;
-        }
-
-        .loading-screen.hidden .loading-content {
-            opacity: 0;
-        }
 
         .spinner {
             width: 50px;
@@ -148,8 +142,6 @@
             height: 812px;
             position: relative;
             backdrop-filter: blur(10px);
-            opacity: 0;
-            transition: opacity 0.5s ease;
         }
 
         @media (max-width: 480px) {
@@ -166,18 +158,13 @@
             display: none;
             height: 100%;
             overflow-y: auto;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            will-change: transform, opacity;
+            animation: fadeIn 0.3s ease-in-out;
         }
         
         .screen.active {
             display: block;
         }
 
-        /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -191,69 +178,6 @@
         @keyframes slideInLeft {
             from { transform: translateX(-100%); }
             to { transform: translateX(0); }
-        }
-
-        @keyframes slideInUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes popIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        @keyframes confetti-fall {
-            0% { transform: translateY(-100%) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-        }
-        
-        /* Apply animations to specific elements */
-        .welcome-section, .feature-grid, .btn { animation: slideInUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards; }
-        .welcome-section { animation-delay: 0.1s; }
-        .feature-grid { animation-delay: 0.2s; }
-        .btn { animation-delay: 0.3s; }
-
-        .form-group { animation: slideInUp 0.5s ease-out backwards; }
-        .form-group:nth-child(1) { animation-delay: 0.1s; }
-        .form-group:nth-child(2) { animation-delay: 0.2s; }
-        .form-group:nth-child(3) { animation-delay: 0.3s; }
-        .form-group:nth-child(4) { animation-delay: 0.4s; }
-        .form-group:nth-child(5) { animation-delay: 0.5s; }
-
-        .internship-card { animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards; }
-        .internship-card:nth-child(1) { animation-delay: 0.1s; }
-        .internship-card:nth-child(2) { animation-delay: 0.2s; }
-        .internship-card:nth-child(3) { animation-delay: 0.3s; }
-        .internship-card:nth-child(4) { animation-delay: 0.4s; }
-
-        /* Confetti Effect */
-        .confetti-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: 1000;
-        }
-
-        .confetti-piece {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: #f00; /* Will be randomized by JS */
-            animation-name: confetti-fall;
-            animation-duration: 4s;
-            animation-iteration-count: infinite;
-            animation-timing-function: linear;
         }
         
         /* Header */
@@ -474,6 +398,11 @@
         .voice-input-btn.recording {
             color: var(--error-color);
             animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         /* Skills Selection */
@@ -818,8 +747,6 @@
             display: flex;
             gap: var(--spacing-lg);
             z-index: 1000;
-            animation: slideInUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards;
-            animation-delay: 0.5s;
         }
         
         .nav-btn {
@@ -887,40 +814,6 @@
             font-size: var(--font-size-sm);
             font-weight: 500;
         }
-        
-        /* Congratulations Screen Styles */
-        #congratulations {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: var(--spacing-3xl);
-            color: var(--gray-700);
-        }
-
-        #congratulations h2 {
-            font-size: var(--font-size-3xl);
-            font-weight: 700;
-            margin-bottom: var(--spacing-lg);
-            animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
-
-        #congratulations p {
-            font-size: var(--font-size-lg);
-            color: var(--gray-500);
-            animation: fadeIn 1s ease-in-out;
-            animation-delay: 0.2s;
-            animation-fill-mode: backwards;
-        }
-
-        #congratulations .btn-primary {
-            margin-top: var(--spacing-3xl);
-            animation: fadeIn 1s ease-in-out;
-            animation-delay: 0.4s;
-            animation-fill-mode: backwards;
-        }
-
 
         /* Responsive Design */
         @media (max-width: 480px) {
@@ -979,41 +872,16 @@
                 display: none !important;
             }
         }
-        
-        /* Reduced Motion Accessibility */
-        @media (prefers-reduced-motion: reduce) {
-            .app-container,
-            .screen,
-            .welcome-section,
-            .feature-grid,
-            .btn,
-            .form-group,
-            .internship-card,
-            .bottom-navigation,
-            #congratulations h2,
-            #congratulations p {
-                animation: none !important;
-                transition: none !important;
-            }
-            .loading-content {
-                animation: none !important;
-            }
-            .spinner {
-                animation: spin 1.5s linear infinite !important;
-            }
-        }
     </style>
 </head>
-
 <body>
-
+    <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
-        <div class="loading-content">
-            <div class="spinner"></div>
-            <div class="loading-text">Loading RisingPath...</div>
-        </div>
+        <div class="spinner"></div>
+        <div class="loading-text">Loading RisingPath...</div>
     </div>
 
+    <!-- Toast Notification -->
     <div class="toast" id="toast">
         <div class="toast-content">
             <span class="toast-icon">✓</span>
@@ -1022,6 +890,7 @@
     </div>
 
     <div class="app-container" id="appContainer">
+        <!-- Screen 1: Welcome/Landing -->
         <div class="screen active" id="welcome" role="main" aria-label="Welcome to RisingPath">
             <div class="accessibility-bar">
                 <div class="accessibility-feature">
@@ -1066,20 +935,21 @@
                     </div>
                 </div>
                 
-                <button class="btn btn-primary" onclick="navigateToScreen('profile', 'right')" aria-describedby="get-started-desc">
+                <button class="btn btn-primary" onclick="navigateToScreen('profile')" aria-describedby="get-started-desc">
                     Get Started
                     <span class="sr-only" id="get-started-desc">Begin creating your profile to find internships</span>
                 </button>
-                <button class="btn btn-secondary" onclick="navigateToScreen('demo', 'right')" aria-describedby="demo-desc">
+                <button class="btn btn-secondary" onclick="navigateToScreen('demo')" aria-describedby="demo-desc">
                     View Demo Results
                     <span class="sr-only" id="demo-desc">See sample internship matches</span>
                 </button>
             </main>
         </div>
 
+        <!-- Screen 2: Profile Setup -->
         <div class="screen" id="profile" role="main" aria-label="Create your profile">
             <header class="header">
-                <button class="back-btn" onclick="navigateToScreen('welcome', 'left')" aria-label="Go back to welcome screen">←</button>
+                <button class="back-btn" onclick="navigateToScreen('welcome')" aria-label="Go back to welcome screen">←</button>
                 <h1 class="logo">Create Your Profile</h1>
                 <p class="tagline">Step 1 of 2</p>
             </header>
@@ -1184,9 +1054,10 @@
             </main>
         </div>
 
+        <!-- Screen 3: Preferences -->
         <div class="screen" id="preferences" role="main" aria-label="Set your preferences">
             <header class="header">
-                <button class="back-btn" onclick="navigateToScreen('profile', 'left')" aria-label="Go back to profile screen">←</button>
+                <button class="back-btn" onclick="navigateToScreen('profile')" aria-label="Go back to profile screen">←</button>
                 <h1 class="logo">Your Preferences</h1>
                 <p class="tagline">Step 2 of 2</p>
             </header>
@@ -1278,10 +1149,11 @@
                 </form>
             </main>
         </div>
-        
+
+        <!-- Screen 4: Results -->
         <div class="screen" id="results" role="main" aria-label="Your internship matches">
             <header class="header">
-                <button class="back-btn" onclick="navigateToScreen('preferences', 'left')" aria-label="Go back to preferences">←</button>
+                <button class="back-btn" onclick="navigateToScreen('preferences')" aria-label="Go back to preferences">←</button>
                 <h1 class="logo">Your Matches</h1>
                 <p class="tagline" id="resultsSubtitle">3 perfect matches found</p>
             </header>
@@ -1292,17 +1164,19 @@
                 </div>
 
                 <div id="internshipsList">
-                    </div>
+                    <!-- Internship cards will be dynamically generated here -->
+                </div>
 
-                <button class="btn btn-secondary" onclick="navigateToScreen('preferences', 'left')" style="margin-top: 20px;">
+                <button class="btn btn-secondary" onclick="navigateToScreen('preferences')" style="margin-top: 20px;">
                     Refine Search
                 </button>
             </main>
         </div>
 
+        <!-- Screen 5: Demo Results -->
         <div class="screen" id="demo" role="main" aria-label="Demo internship results">
             <header class="header">
-                <button class="back-btn" onclick="navigateToScreen('welcome', 'left')" aria-label="Go back to welcome">←</button>
+                <button class="back-btn" onclick="navigateToScreen('welcome')" aria-label="Go back to welcome">←</button>
                 <h1 class="logo">Sample Results</h1>
                 <p class="tagline">See how it works</p>
             </header>
@@ -1351,30 +1225,19 @@
                     </button>
                 </article>
 
-                <button class="btn btn-primary" onclick="navigateToScreen('profile', 'right')">
+                <button class="btn btn-primary" onclick="navigateToScreen('profile')">
                     Create Your Profile
                 </button>
             </main>
         </div>
-
-        <div class="screen" id="congratulations" role="main" aria-label="Congratulations">
-            <div class="confetti-container"></div>
-            <main class="content">
-                <h2>Congratulations!</h2>
-                <p>Your profile is complete. Now, let's find the best internships for you.</p>
-                <button class="btn btn-primary" onclick="navigateToScreen('preferences', 'right')">
-                    Find Internships Now!
-                </button>
-            </main>
-        </div>
-
     </div>
 
+    <!-- Bottom Navigation -->
     <nav class="bottom-navigation" role="navigation" aria-label="Screen navigation">
-        <button class="nav-btn active" onclick="navigateToScreen('welcome', 'left')" aria-label="Go to home">Home</button>
-        <button class="nav-btn" onclick="navigateToScreen('profile', 'right')" aria-label="Go to profile">Profile</button>
-        <button class="nav-btn" onclick="navigateToScreen('preferences', 'right')" aria-label="Go to preferences">Prefs</button>
-        <button class="nav-btn" onclick="navigateToScreen('results', 'right')" aria-label="Go to results">Results</button>
+        <button class="nav-btn active" onclick="navigateToScreen('welcome')" aria-label="Go to home">Home</button>
+        <button class="nav-btn" onclick="navigateToScreen('profile')" aria-label="Go to profile">Profile</button>
+        <button class="nav-btn" onclick="navigateToScreen('preferences')" aria-label="Go to preferences">Prefs</button>
+        <button class="nav-btn" onclick="navigateToScreen('results')" aria-label="Go to results">Results</button>
     </nav>
 
     <script>
@@ -1514,49 +1377,30 @@
         };
 
         // Screen Management
-        function navigateToScreen(screenId, direction = 'right') {
-            const currentScreen = document.getElementById(AppState.currentScreen);
+        function navigateToScreen(screenId) {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+                screen.style.animation = 'none';
+            });
+            
+            // Show target screen with animation
             const targetScreen = document.getElementById(screenId);
-
-            if (!currentScreen || !targetScreen) return;
-
-            // Animate current screen out
-            const exitAnimation = direction === 'right' ? 'slideOutLeft' : 'slideOutRight';
-            const enterAnimation = direction === 'right' ? 'slideInRight' : 'slideInLeft';
-
-            // Check for reduced motion preference
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                // Instantly switch for users with this preference
-                currentScreen.classList.remove('active');
-                targetScreen.classList.add('active');
-                targetScreen.style.animation = 'none';
-                AppState.currentScreen = screenId;
-                updateNavigation(screenId);
-                announceScreenChange(screenId);
-                targetScreen.scrollTop = 0;
-                return;
-            }
-
-            // Animate out the current screen
-            currentScreen.style.animation = `${exitAnimation} 0.3s forwards`;
-            currentScreen.style.zIndex = '0'; // Put it behind the incoming screen
-
-            // Animate in the new screen
-            targetScreen.style.animation = `${enterAnimation} 0.3s forwards`;
-            targetScreen.style.zIndex = '1';
             targetScreen.classList.add('active');
+            targetScreen.style.animation = 'fadeIn 0.3s ease-in-out';
+            
+            // Update navigation
+            updateNavigation(screenId);
+            
+            // Update app state
+            AppState.currentScreen = screenId;
+            
+            // Scroll to top
+            targetScreen.scrollTop = 0;
 
-            // After animation, clean up classes and update state
-            setTimeout(() => {
-                currentScreen.classList.remove('active');
-                currentScreen.style.animation = 'none';
-                AppState.currentScreen = screenId;
-                updateNavigation(screenId);
-                announceScreenChange(screenId);
-                targetScreen.scrollTop = 0;
-            }, 300);
+            // Announce screen change for screen readers
+            announceScreenChange(screenId);
         }
-
 
         function updateNavigation(activeScreen) {
             document.querySelectorAll('.nav-btn').forEach(btn => {
@@ -1568,8 +1412,7 @@
                 'profile': 1,
                 'preferences': 2,
                 'results': 3,
-                'demo': 0,
-                'congratulations': 1 
+                'demo': 0
             };
             
             const navBtns = document.querySelectorAll('.nav-btn');
@@ -1585,8 +1428,7 @@
                 'profile': 'Navigated to profile creation',
                 'preferences': 'Navigated to preferences setup',
                 'results': 'Navigated to internship results',
-                'demo': 'Navigated to demo results',
-                'congratulations': 'Navigated to congratulations screen'
+                'demo': 'Navigated to demo results'
             };
             
             if (announcements[screenId]) {
@@ -1631,36 +1473,9 @@
             // Save data to app state
             AppState.userData.profile = Object.fromEntries(formData.entries());
             
-            // Show congratulations screen and then navigate
-            navigateToScreen('congratulations', 'right');
-        }
-
-        function navigateFromCongratulations() {
-            startConfetti();
-            setTimeout(() => {
-                stopConfetti();
-                showToast('Profile saved successfully!');
-                navigateToScreen('preferences', 'right');
-            }, 1000);
-        }
-
-        // Confetti Effect
-        function startConfetti() {
-            const confettiContainer = document.querySelector('.confetti-container');
-            const colors = ['#f00', '#0f0', '#00f', '#ff0', '#0ff', '#f0f'];
-            for (let i = 0; i < 50; i++) {
-                const piece = document.createElement('div');
-                piece.className = 'confetti-piece';
-                piece.style.left = `${Math.random() * 100}%`;
-                piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                piece.style.animationDelay = `${Math.random() * 4}s`;
-                confettiContainer.appendChild(piece);
-            }
-        }
-
-        function stopConfetti() {
-            const confettiContainer = document.querySelector('.confetti-container');
-            confettiContainer.innerHTML = '';
+            // Show success and navigate
+            showToast('Profile saved successfully!');
+            setTimeout(() => navigateToScreen('preferences'), 1000);
         }
 
         // Skills Management
@@ -1746,7 +1561,7 @@
                 findBtn.innerHTML = '<span>Find My Internships</span>';
                 
                 // Navigate to results
-                navigateToScreen('results', 'right');
+                navigateToScreen('results');
                 showToast(`Found ${matches.length} matching internships!`);
             }, 2000);
         }
@@ -2000,11 +1815,11 @@
                     // Close any open modals or return to previous screen
                     const currentScreen = AppState.currentScreen;
                     if (currentScreen === 'profile') {
-                        navigateToScreen('welcome', 'left');
+                        navigateToScreen('welcome');
                     } else if (currentScreen === 'preferences') {
-                        navigateToScreen('profile', 'left');
+                        navigateToScreen('profile');
                     } else if (currentScreen === 'results') {
-                        navigateToScreen('preferences', 'left');
+                        navigateToScreen('preferences');
                     }
                 }
             });
@@ -2162,22 +1977,10 @@
 
         // Application Initialization
         function initApp() {
+            // Show loading screen
             const loadingScreen = document.getElementById('loadingScreen');
             const appContainer = document.getElementById('appContainer');
             
-            // Hide the loading content first
-            const loadingContent = document.querySelector('.loading-content');
-            setTimeout(() => {
-                loadingContent.style.opacity = '0';
-            }, 1000);
-
-            // Then hide the loading screen and show the app
-            setTimeout(() => {
-                loadingScreen.classList.add('hidden');
-                appContainer.style.opacity = '1';
-                trackEvent('app_loaded');
-            }, 1500);
-
             // Initialize all features
             initPWA();
             initAccessibility();
@@ -2191,6 +1994,13 @@
             // Real-time form validation
             setupRealTimeValidation();
             
+            // Hide loading screen after initialization
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+                appContainer.style.opacity = '1';
+                trackEvent('app_loaded');
+            }, 1500);
+
             // Track initial screen view
             trackEvent('screen_view', { screen: 'welcome' });
         }
@@ -2264,6 +2074,7 @@
         }
     </script>
 
+    <!-- Service Worker for PWA (inline for deployment) -->
     <script>
         // Simple service worker for basic caching
         const SW_VERSION = 'risingpath-v1.0.0';
@@ -2302,4 +2113,5 @@
     </script>
 </body>
 </html>
+
 
